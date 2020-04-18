@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>Vue Playlist</h2>
+    <h2>VUE PLAYLIST</h2>
     <h3>Add a New Song:</h3>
     <form @submit="addSong">
       <label for="new-song">
@@ -11,11 +11,16 @@
       </label>
       <input type="submit" value="Submit" />
     </form>
-    <div class="like-song">
-    <ul>
-      <Song v-for="song in songs" :key="song.title" :song="song" v-on:delete-song="removeSong"/>
-    </ul>
-    </div>
+      <ul class="song-list">
+        <Song
+          v-for="song in songs"
+          :key="song.title"
+          :song="song"
+          v-on:delete-song="removeSong"
+          v-on:like-song="likeSong"
+          :class="{'liked-song' : song.favorite}"
+        />
+      </ul>
   </section>
 </template>
 
@@ -33,8 +38,13 @@ export default {
       songs: [
         {
           title: "You're Welcome",
-          artist: 'Dwayne Johnson',
-          favorite: true 
+          artist: "Dwayne Johnson",
+          favorite: true
+        },
+        {
+          title: "High Hopes",
+          artist: "Panic! at the Disco",
+          favorite: false
         }
       ]
     };
@@ -49,8 +59,12 @@ export default {
         artist: newArtist,
         favorite: false
       });
-      this.newSong = ""; 
+      this.newSong = "";
       this.newArtist = "";
+    },
+    likeSong(song) {
+      const faveIndex = this.songs.indexOf(song);
+      this.songs[faveIndex].favorite = !this.songs[faveIndex].favorite;
     },
     removeSong(song) {
       const songIndex = this.songs.indexOf(song);
@@ -61,5 +75,8 @@ export default {
 </script>
 
 <style>
-
+  .liked-song {
+    font-style: italic;
+    font-weight: bold;
+  }
 </style>
