@@ -1,5 +1,5 @@
 <template>
-  <li>{{song.title}}</li>
+  <li>{{song.title}} by {{song.artist}}</li>
 </template>
 
 <script>
@@ -10,4 +10,7 @@ export default {
 </script>
 
 <style>
+li {
+  text-align: left;
+}
 </style>

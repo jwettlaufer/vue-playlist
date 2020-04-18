@@ -4,10 +4,10 @@
     <h3>Add a New Song:</h3>
     <form @submit="addSong">
       <label for="new-song">
-        Song Title:
-        <input type="text" name="song" v-model="newSong" />
+        Title:
+        <input type="text" name="title" v-model="newSong" />
         Artist:
-        <input type="text" name="artist" v-model="newSong" />
+        <input type="text" name="artist" v-model="newArtist" />
       </label>
       <input type="submit" value="Submit" />
     </form>
@@ -29,7 +29,8 @@ export default {
       newSong: "",
       songs: [
         {
-          title: "You're Welcome"
+          title: "You're Welcome",
+          artist: 'Dwayne Johnson'
         }
       ]
     };
@@ -38,10 +39,13 @@ export default {
     addSong(event) {
       event.preventDefault();
       const newSong = this.newSong;
+      const newArtist = this.newArtist;
       this.songs.push({
-        title: newSong
+        title: newSong,
+        artist: newArtist
       });
-      this.newSong = ""; //Clear the value after adding, so it is easy for the user to add more.
+      this.newSong = ""; 
+      this.newArtist = "";
     }
   }
 };
