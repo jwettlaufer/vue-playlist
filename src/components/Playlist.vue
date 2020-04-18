@@ -11,9 +11,11 @@
       </label>
       <input type="submit" value="Submit" />
     </form>
+    <div class="like-song">
     <ul>
-      <Song v-for="song in songs" :key="song.title" :song="song" />
+      <Song v-for="song in songs" :key="song.title" :song="song" v-on:delete-song="removeSong"/>
     </ul>
+    </div>
   </section>
 </template>
 
@@ -27,10 +29,12 @@ export default {
   data() {
     return {
       newSong: "",
+      newArtist: "",
       songs: [
         {
           title: "You're Welcome",
-          artist: 'Dwayne Johnson'
+          artist: 'Dwayne Johnson',
+          favorite: true 
         }
       ]
     };
@@ -42,14 +46,20 @@ export default {
       const newArtist = this.newArtist;
       this.songs.push({
         title: newSong,
-        artist: newArtist
+        artist: newArtist,
+        favorite: false
       });
       this.newSong = ""; 
       this.newArtist = "";
+    },
+    removeSong(song) {
+      const songIndex = this.songs.indexOf(song);
+      this.songs.splice(songIndex, 1);
     }
   }
 };
 </script>
 
 <style>
+
 </style>
